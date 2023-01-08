@@ -37,7 +37,7 @@ localparam [3:0]    PWR_OFF         =   4'd0,       //двигатель вык�
                     MOVE_BACK       =   4'd7,       //движение назад
                     TRACKER_ERROR   =   4'd8;       //впереди препятствие
 
-reg [2:0]   STATUS_CURRENT, STATUS_NEXT;
+reg [3:0]   STATUS_CURRENT, STATUS_NEXT;
 reg         motor_status_current_reg, motor_status_next_reg;
 reg         tracker_current_reg, tracker_next_reg;
 reg [1:0]   left_motor_current_reg, left_motor_next_reg; 

@@ -38,25 +38,17 @@ localparam [3:0]    PWR_OFF         =   4'd0,       //двигатель вык�
                     TRACKER_ERROR   =   4'd8;       //впереди препятствие
 
 reg [3:0]   STATUS_CURRENT, STATUS_NEXT;
-reg         motor_status_current_reg, motor_status_next_reg;
-reg         tracker_current_reg, tracker_next_reg;
-reg [1:0]   left_motor_current_reg, left_motor_next_reg; 
-reg [1:0]   right_motor_current_reg, right_motor_next_reg;
+reg         motor_status_next_reg;
+reg         tracker_next_reg;
+reg [1:0]   left_motor_next_reg; 
+reg [1:0]   right_motor_next_reg;
 
 always @ (posedge clk_i, negedge rstn_i) begin
     if(!rstn_i) begin
         STATUS_CURRENT              <=  PWR_OFF;
-        motor_status_current_reg    <=  1'b0;
-        left_motor_current_reg      <=  2'b00;
-        right_motor_current_reg     <=  2'b00;
-        tracker_current_reg         <=  1'b0;
     end
     else begin
         STATUS_CURRENT              <=  STATUS_NEXT;
-        motor_status_current_reg    <=  motor_status_next_reg;
-        left_motor_current_reg      <=  left_motor_next_reg;
-        right_motor_current_reg     <=  right_motor_next_reg;
-        tracker_current_reg         <=  tracker_next_reg;
     end 
 end
 
@@ -131,9 +123,9 @@ always @ * begin
     endcase   
 end 
 
-assign left_motor_o     =   left_motor_current_reg;
-assign right_motor_o    =   right_motor_current_reg;
-assign motor_status_o   =   motor_status_current_reg;
-assign tracker_status_o =   tracker_current_reg;
+assign left_motor_o     =   left_motor_next_reg;
+assign right_motor_o    =   right_motor_next_reg;
+assign motor_status_o   =   motor_status_next_reg;
+assign tracker_status_o =   tracker_next_reg;
 
 endmodule

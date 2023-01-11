@@ -86,6 +86,22 @@ initial begin
     move_forward();
     move_forward();
     move_forward();
+    move_forward();
+    turn_right();
+    move_forward();
+    move_forward();
+    move_forward();
+    move_forward();
+    move_forward();
+    move_forward();
+    move_forward();
+    turn_left();
+    move_backward();
+    move_backward();
+    move_backward();
+    move_backward();
+    move_backward();
+    move_backward();
     $display("Turn off motor");
     motor_on = 1'b0;
     repeat (3) @ (posedge clk);
@@ -143,7 +159,7 @@ endtask
 
 always @ * begin
     case({left_motor, right_motor})
-        4'b0000: $display("Stay on position: Axis X: %d, Axis Y: %d", x_axis, y_axis);
+        4'b0000: $display("Stay on position: Axis X: %d, Axis Y: %d, Side: %b", x_axis, y_axis, move_side);
         4'b0101: begin
                 $display("Robot moved to 1 square forward");
                 case(move_side)
@@ -176,8 +192,29 @@ always @ * begin
     endcase  
 end         
 
+always @ * begin
+    if((move_side == 2'b00) && (x_axis == 4'd1))
+        tracker_fwrd = 1'b1;
+    else if((move_side == 2'b01) && (y_axis == 4'd7))
+        tracker_fwrd = 1'b1;
+    else if((move_side == 2'b10) && (x_axis == 4'd7))
+        tracker_fwrd = 1'b1;
+    else if((move_side == 2'b11) && (y_axis == 4'd1))
+        tracker_fwrd = 1'b1;
+    else
+        tracker_fwrd = 1'b0;
+end
 
-
+always @ * begin 
+    if(tracker_status) begin
+        if((left_motor == 2'b00) && (right_motor == 2'b00)) begin
+            $display("Obstacle is founded! Robot is stopped");
+            $display("Stay on position: Axis X: %d, Axis Y: %d, Side: %b", x_axis, y_axis, move_side);
+        end
+        else
+            $error("Obstacle is founded, but  Robot moved");
+    end
+end
 
 endmodule
 

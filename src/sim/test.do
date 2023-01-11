@@ -21,6 +21,8 @@ add wave -noupdate -expand -group {Motor Status} -color Magenta /robot_tb/DUT/ri
 add wave -noupdate -color Blue /robot_tb/DUT/STATUS_CURRENT
 add wave -noupdate /robot_tb/DUT/STATUS_NEXT
 add wave -noupdate /robot_tb/DUT/move_i
+add wave -noupdate /robot_tb/DUT/tracker_fwrd_i
+add wave -noupdate /robot_tb/DUT/tracker_status_o
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {110 ns} 0}
 quietly wave cursor active 1

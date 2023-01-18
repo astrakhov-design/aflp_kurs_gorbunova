@@ -57,6 +57,7 @@ always @ * begin
     right_motor_next_reg    =   2'b00;
     tracker_next_reg        =   1'b0;
     motor_status_next_reg   =   1'b0;
+    STATUS_NEXT             =   STATUS_CURRENT;
     case(STATUS_CURRENT)
         PWR_OFF: begin
             if(motor_on_i)
